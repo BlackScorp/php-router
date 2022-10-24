@@ -20,7 +20,9 @@ final class Request
         $queryParams = [];
 
         parse_str($queryString, $queryParams);
-        $url = str_replace([$scriptName, $baseDir, '?' . $queryString], '', $_SERVER['REQUEST_URI']);
+        $url = '/'.str_replace([$scriptName, $baseDir, '?' . $queryString], '', $_SERVER['REQUEST_URI']);
+        $url = str_replace('//','/',$url);
+
 
         return new Request($url, $requestMethod, $queryParams);
     }

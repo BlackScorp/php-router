@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__.'/RouteNotFoundException.php';
+require_once __DIR__ . '/RouteNotFoundException.php';
 
 final class Router
 {
@@ -16,7 +16,7 @@ final class Router
     }
     public function handle(Request $request): mixed
     {
-        $searchString = $request->getUri().self::SEPARATOR.$request->getMethod();
+        $searchString = $request->getUri() . self::SEPARATOR .$request->getMethod();
 
         foreach($this->routes as $routeKey => $routeData){
             [$action,$methods] = array_values($routeData);
