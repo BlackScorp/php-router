@@ -13,14 +13,18 @@ final class Request
 
     public static function createFromGlobal(): self
     {
-        $scriptName = $_SERVER['SCRIPT_NAME'];
+        /** Add # to start of the string to replace only beginning of the URI */
+        $scriptName = '#' . $_SERVER['SCRIPT_NAME'];
+        $requestUri = '#' . $_SERVER['REQUEST_URI'];
         $baseDir = dirname($scriptName);
+
         $queryString = $_SERVER['QUERY_STRING'];
         $requestMethod = $_SERVER['REQUEST_METHOD'];
         $queryParams = [];
 
         parse_str($queryString, $queryParams);
-        $url = '/' . str_replace(['#' . $scriptName, '#' . $baseDir, '?' . $queryString], '', '#' . $_SERVER['REQUEST_URI']);
+
+        $url = '/' . str_replace([$scriptName, $baseDir, '?' . $queryString], '', $requestUri);
         $url = str_replace('//', '/', $url);
 
 
