@@ -1,11 +1,10 @@
 <?php
 error_reporting(E_ALL);
 
-require_once __DIR__.'/Router.php';
-require_once __DIR__.'/Request.php';
-require_once __DIR__.'/IndexController.php';
+require_once __DIR__ . '/Router.php';
+require_once __DIR__ . '/Request.php';
 
-$router = require_once __DIR__.'/routes.php';
+$router = require_once __DIR__ . '/routes.php';
 
 $request = Request::createFromGlobal();
 
