@@ -6,7 +6,8 @@ $router = new Router();
 
 $router->register('/', new IndexController());
 
-$router->register('/profile/{id}', new ProfileController());
+$router->register('/profile/{id}', new ProfileController(),'POST');
+$router->register('/profile/{id}', new ProfileController(),'GET');
 
 $router->register('/account/login', function (Request $request) {
     return 'Login';

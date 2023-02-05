@@ -8,20 +8,16 @@ final class Router
     public function register(string $url, callable $action,string $methods = 'GET|POST'): array
     {
         $url = preg_replace('~{(.*)}~mU', '(?<$1>\S+)', $url);
-        $this->routes[$url]= [
-            'action' => $action,
-            'methods' => $methods
-        ];
+        $url = sprintf('~^(%s)/?%s(%s)$~i',$url, self::SEPARATOR, $methods);
+        $this->routes[$url]= $action;
+
         return $this->routes;
     }
     public function handle(Request $request): mixed
     {
         $searchString = $request->getUri() . self::SEPARATOR .$request->getMethod();
 
-        foreach($this->routes as $routeKey => $routeData){
-            [$action,$methods] = array_values($routeData);
-            $rexEx = sprintf('~^(%s)/?%s(%s)$~i',$routeKey,self::SEPARATOR,$methods);
-
+        foreach($this->routes as $rexEx => $action){
             $matches = [];
             if(!preg_match($rexEx,$searchString,$matches)){
                 continue;
